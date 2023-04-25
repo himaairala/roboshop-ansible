@@ -21,7 +21,7 @@
 #STAT $?
 
 - name: Install Nginx
-  ansible.builtin.package:
+  ansible.builtin.yum:
     name: nginx
     state: installed
 
