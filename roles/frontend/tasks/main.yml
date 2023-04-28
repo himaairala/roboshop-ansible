@@ -1,7 +1,5 @@
 
-#APP_LOC=/usr/share/nginx/html
 
-#DOWNLOAD_APP_CODE
 #mv frontend-main/static/* . &>>$LOG
 
 #PRINT "copy roboshop configuration file"
