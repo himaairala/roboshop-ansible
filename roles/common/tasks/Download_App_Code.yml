@@ -31,7 +31,7 @@
 
 - name: Copy Extracted App content to App Location
   ansible.builtin.copy:
-    src: /tmp/{{ COMPONENT }} -main/
+    src: /tmp/{{ COMPONENT }}-main/
     dest: "{{ APP_LOC  }}"
     remote_src: yes
 
