@@ -16,6 +16,7 @@
 - name: Remove the previous version of app
   ansible.builtin.file:
     path: "{{ APP_LOC  }}"
+    state: absent
 
 - name: Download App Content and Extract it
   ansible.builtin.unarchive:
