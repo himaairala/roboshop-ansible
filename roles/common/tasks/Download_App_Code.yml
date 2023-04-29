@@ -1,5 +1,3 @@
-
-
 #PRINT "Remove previous version of App"
 #
 #cd $APP_LOC &>>$LOG
