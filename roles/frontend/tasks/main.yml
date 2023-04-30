@@ -1,6 +1,5 @@
 
 
-#mv frontend-main/static/* . &>>$LOG
 
 #PRINT "copy roboshop configuration file"
 #mv frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf &>>$LOG
