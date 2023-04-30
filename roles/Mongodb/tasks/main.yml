@@ -1,3 +1,0 @@
-- name: Demo on mongodb
-  debug:
-    msg: mongodb
