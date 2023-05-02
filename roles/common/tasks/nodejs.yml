@@ -1,0 +1,22 @@
+
+#    mv ${COMPONENT}-main ${COMPONENT}
+#    cd ${COMPONENT}
+#    PRINT "Install NodeJs dependencies for App"
+#    npm install &>>$LOG
+#    STAT $?
+#    SYSTEMD_SETUP
+#  }
+
+- name: Configure NodeJs repos
+  ansible.builtin.shell: curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+
+- name: Install NodeJs
+  ansible.builtin.yum:
+    name: nodejs
+    state: installed
+
+- name: Include Download App Code Tasks from Common Role
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: Download_App_Code
+
