@@ -9,7 +9,7 @@
 #    systemctl daemon-reload &>>$LOG && systemctl restart ${COMPONENT} &>>$LOG && systemctl enable ${COMPONENT} &>>$LOG
 
 
-- name: Setup SystemD setup File
+- name: Setup SystemD service File
   ansible.builtin.copy:
     src: systemd.service
     dest: /etc/systemd/system/{{ COMPONENT }}.service
