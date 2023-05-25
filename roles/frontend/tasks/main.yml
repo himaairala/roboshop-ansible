@@ -1,7 +1,3 @@
-#PRINT "Update roboshop Configuration"
-#sed -i -e '/catalogue/ s/localhost/dev-catalogue.devops321.online/' -e '/user/ s/localhost/dev-user.devops321.online/' -e '/cart/ s/localhost/dev-cart.devops321.online/' -e '/shipping/ s/localhost/dev-shipping.devops321.online/' -e '/payment/ s/localhost/dev-payment.devops321.online/' /etc/nginx/default.d/roboshop.conf
-#STAT $?
-
 - name: Install Nginx
   ansible.builtin.yum:
     name: nginx
@@ -13,7 +9,7 @@
     tasks_from: Download_App_Code
 
 - name: Copy Roboshop Configuration File
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: roboshop.conf
     dest: /etc/nginx/default.d/roboshop.conf
 
