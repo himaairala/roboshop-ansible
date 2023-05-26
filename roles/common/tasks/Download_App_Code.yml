@@ -26,7 +26,7 @@
 - name: Download App Content and Extract it
   ansible.builtin.unarchive:
     src: https://github.com/himaairala/{{COMPONENT}}/archive/refs/heads/main.zip
-    dest: /tmp
+    dest: "/tmp"
     remote_src: yes
 
 - name: Copy Extracted App content to App Location
