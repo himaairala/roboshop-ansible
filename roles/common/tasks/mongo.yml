@@ -1,4 +1,4 @@
-- name: load schema
+- name: Load Schema
   community.mongodb.mongodb_shell:
     login_host: "{{ lookup('aws_ssm', 'param.{{ENV}}.catalogue.MONGO_ENDPOINT', region='us-east-1' ) }}"
     file: "{{APP_LOC}}/schema/{{COMPONENT}}.js"
