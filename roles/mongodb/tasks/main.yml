@@ -31,5 +31,18 @@
     state: restarted
     enabled: yes
 
+- name: Load Schema
+  community.mongodb.mongodb_shell:
+    login_host: "{{ lookup('aws_ssm', 'param.{{ENV}}.catalogue.MONGO_ENDPOINT', region='us-east-1' ) }}"
+    file: "{{APP_LOC}}/schema/{{COMPONENT}}.js"
+    idempotent: yes
+    ignore_errors: true
+    loop:
+      -catalogue
+      -users
 
+- name: SystemD tasks
+  ansible.builtin.include_role:
+    name: common
+    tasks_from: systemd
 
