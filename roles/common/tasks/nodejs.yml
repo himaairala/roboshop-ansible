@@ -26,13 +26,8 @@
 
 
 
-- name: Load Schema
-  when: LOAD_SCHEMA
-  ansible.builtin.shell: mongo --host mongodb-dev.devops321.online </app/schema/{{COMPONENT}}.js
 
 
-- name: SystemD tasks
-  ansible.builtin.include_role:
-    name: common
-    tasks_from: systemd
+
+
 
