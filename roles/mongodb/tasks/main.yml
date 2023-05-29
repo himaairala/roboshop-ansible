@@ -32,7 +32,10 @@
     enabled: yes
 
 - name: Load Schema
-  ansible.builtin.shell: mongo --host mongodb-dev.devops321.online </app/schema/{{COMPONENT}}.js
+  ansible.builtin.shell: mongo --host mongodb-dev.devops321.online </{{APP_LOC}}/schema/{{COMPONENT}}.js
+  loop:
+      - catalogue
+      - users
 
 - name: SystemD tasks
   ansible.builtin.include_role:
