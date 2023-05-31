@@ -10,7 +10,7 @@
   # mongo < users.js
 
 - name: Copy MONGODB YUM repo file
-  ansible.builtin.copy:
+  ansible.builtin.template:
     src: mongodb.repo
     dest: /etc/yum.repos.d/mongodb.repo
 
