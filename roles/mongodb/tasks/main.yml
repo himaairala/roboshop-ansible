@@ -37,7 +37,7 @@
     remote_src: yes
 
 - name: Load Schema
-  ansible.builtin.shell: mongo --host dev-mongodb.devops321.online </app/schema/{{COMPONENT}}.js
+  ansible.builtin.shell: mongo --host mongodb-dev.devops321.online </app/schema/{{component}}.js
   file: "/tmp/mongodb-main/{{item}}.js"
   idempotent: yes
   loop:
