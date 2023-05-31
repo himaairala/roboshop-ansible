@@ -30,10 +30,16 @@
     name: mongod
     state: restarted
     enabled: yes
+- name: Download App Content & Extract it
+  ansible.builtin.unarchive:
+    src: https://github.com/roboshop-devops-project/mongodb/archive/main.zip
+    dest: "/tmp"
+    remote_src: yes
 
 - name: Load Schema
   community.mongodb.mongodb_shell:
     ansible.builtin.shell: mongo --host dev-mongodb.devops321.online </app/schema/{{COMPONENT}}.js
+    file: "/tmp/mongodb-main/{{item}}.js"
     idempotent: yes
     loop:
       -catalogue
