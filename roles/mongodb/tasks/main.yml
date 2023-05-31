@@ -37,13 +37,13 @@
     dest: "/tmp"
     remote_src: yes
 
-- name: Load Schema
-  community.mongodb.mongodb_shell:
-  file: "/tmp/mongodb-main/{{item}}.js"
-  idempotent: yes
-  loop:
-      -catalogue
-      -users
+#- name: Load Schema
+#  community.mongodb.mongodb_shell:
+#  file: "/tmp/mongodb-main/{{item}}.js"
+#  idempotent: yes
+#  loop:
+#      -catalogue
+#      -users
 
 #- name: SystemD tasks
 #  ansible.builtin.include_role:
