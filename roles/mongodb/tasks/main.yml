@@ -30,6 +30,7 @@
     name: mongod
     state: restarted
     enabled: yes
+
 - name: Download App Content & Extract it
   ansible.builtin.unarchive:
     src: https://github.com/roboshop-devops-project/mongodb/archive/main.zip
