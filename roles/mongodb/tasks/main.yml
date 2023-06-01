@@ -9,15 +9,7 @@
   # mongo < catalogue.js
   # mongo < users.js
 
-- name: Copy MONGODB YUM repo file
-  ansible.builtin.template:
-    src: mongodb.repo
-    dest: /etc/yum.repos.d/mongodb.repo
 
-- name: Install MongoDB
-  ansible.builtin.yum:
-    name: mongodb-org
-    state: installed
 
 - name: Update MongoDB listen address
   ansible.builtin.replace:
