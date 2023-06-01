@@ -1,23 +1,13 @@
-  # systemctl enable mongod
-  # systemctl start mongod
-  # systemctl restart mongod
-  # curl -s -L -o /tmp/mongodb.zip "https://github.com/roboshop-devops-project/mongodb/archive/main.zip"
 
-  # cd /tmp
-  # unzip mongodb.zip
-  # cd mongodb-main
-  # mongo < catalogue.js
-  # mongo < users.js
+- name: Copy MONGODB YUM repo file
+  ansible.builtin.template:
+    src: mongodb.repo
+    dest: /etc/yum.repos.d/mongodb.repo
 
-  - name: Copy MONGODB YUM repo file
-    ansible.builtin.template:
-      src: mongodb.repo
-      dest: /etc/yum.repos.d/mongodb.repo
-
-  - name: Install MongoDB
-    ansible.builtin.yum:
-      name: mongodb-org-shell
-      state: installed
+- name: Install MongoDB
+  ansible.builtin.yum:
+    name: mongodb-org-shell
+    state: installed
 
 - name: Update MongoDB listen address
   ansible.builtin.replace:
@@ -31,22 +21,5 @@
     state: restarted
     enabled: yes
 
-#- name: Download App Content & Extract it
-#  ansible.builtin.unarchive:
-#    src: https://github.com/roboshop-devops-project/mongodb/archive/main.zip
-#    dest: "/tmp"
-#    remote_src: yes
 
-#- name: Load Schema
-#  ansible.builtin.shell: mongo --host dev-mongodb.devops321.online </app/schema/{{COMPONENT}}.js
-#  file: /tmp/mongodb-main/{{item}}.js
-#  idempotent: yes
-#  loop:
-#    - catalogue
-#    - users
-
-#- name: SystemD tasks
-#  ansible.builtin.include_role:
-#    name: common
-#    tasks_from: systemd
 
