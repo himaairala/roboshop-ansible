@@ -1,2 +1,2 @@
 COMPONENT: mongodb
-APP_LOC: /tmp/mongodb-main.{{item}}.js
+
