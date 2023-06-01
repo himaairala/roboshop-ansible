@@ -8,16 +8,16 @@
     name: mongodb-org-shell
     state: installed
 
-#- name: Load Schema
-#  community.mongodb.mongodb_shell:
-#    login_host: "{{ lookup('aws_ssm', 'param.{{ENV}}.catalogue.MONGO_ENDPOINT', region='us-east-1' ) }}"
-#    file: "{{APP_LOC}}/schema/{{COMPONENT}}.js"
-#    idempotent: yes
-
 - name: Load Schema
-  ansible.builtin.shell: mongo --host dev-mongodb.devops321.online </"{{APP_LOC}}"/schema/{{COMPONENT}}.js
-  login_host: "{{ lookup('aws_ssm', 'param.{{ENV}}.catalogue.MONGO_ENDPOINT', region='us-east-1' ) }}"
-  idempotent: yes
+  community.mongodb.mongodb_shell:
+    login_host: "{{ lookup('aws_ssm', 'param.{{ENV}}.catalogue.MONGO_ENDPOINT', region='us-east-1' ) }}"
+    file: "{{APP_LOC}}/schema/{{COMPONENT}}.js"
+    idempotent: yes
+
+#- name: Load Schema
+#  ansible.builtin.shell: mongo --host dev-mongodb.devops321.online </"{{APP_LOC}}"/schema/{{COMPONENT}}.js
+#  login_host: "{{ lookup('aws_ssm', 'param.{{ENV}}.catalogue.MONGO_ENDPOINT', region='us-east-1' ) }}"
+#  idempotent: yes
 
 #- name: Load Schema
 #  ansible.builtin.shell: mongo --ssl --host {{ lookup('aws_ssm', 'param.{{ENV}}.catalogue.MONGO_ENDPOINT', region='us-east-1' ) }}:27017 rds-combined-ca-bundle.pem --username admin1 --password RoboShop123 <schema/{{SCHEMA_NAME}}.js
