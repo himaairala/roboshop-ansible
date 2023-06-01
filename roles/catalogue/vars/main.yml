@@ -3,4 +3,5 @@ APP_USER: roboshop
 APP_LOC: /home/roboshop/catalogue
 DBTYPE: mongo
 LOAD_SCHEMA: yes
+SCHEMA_NAME: catalogue
 
