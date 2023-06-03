@@ -41,7 +41,9 @@
 
 - name: Install MySql Server
   ansible.builtin.yum:
-    name: mysql-community-server
+    name:
+    - mysql-community-server
+    - python39-PyMySQL
     state: installed
 
 - name: Start MySql Service
@@ -49,3 +51,9 @@
     name: mysqld
     state: restarted
     enabled: yes
+
+- name: Get MySQL Version
+  ansible.builtin.mysql.mysql_info:
+    login_user: root
+    login_password: "{{ROOT_PASSWORD}}"
+    filter: version
