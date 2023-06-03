@@ -60,7 +60,7 @@
   ansible.builtin.set_fact:
     ROOT_PASSWORD: "{{ lookup('aws_ssm', 'param.{{ENV}}.mysql.ROOT_PASSWORD', region='us-east-1' ) }}"
 
-- name: Checking variables
-  ansible.builtin.fail:
-    msg: Expecting the root password input
-  when: ROOT_PASSWORD ==""
+- name: Copy MySql Repo File
+  ansible.builtin.copy:
+    name: mysql.repo
+    src: /etc/yum.repos.d/mysql.repo
