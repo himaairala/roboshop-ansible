@@ -58,7 +58,7 @@
 #STAT $?
 - name: Get root passwords from parameter store
   ansible.builtin.set_fact:
-    ROOT_PASSWORD: "{{ lookup('aws_ssm', 'param.{{ENV}}.catalogue.MONGO_URL', region='us-east-1' ) }}"
+    ROOT_PASSWORD: "{{ lookup('aws_ssm', 'param.{{ENV}}.mysql.ROOT_PASSWORD', region='us-east-1' ) }}"
 
 - name: Checking variables
   ansible.builtin.fail:
