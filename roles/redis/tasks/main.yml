@@ -1,8 +1,8 @@
-
 - name: Install Redis Repo Package
   ansible.builtin.dnf:
     name: https://rpms.remirepo.net/enterprise/remi-release-8.rpm
     state: present
+    disable_gpg:check: true
 
 - name: Enable Redis 6 Module
   ansible.builtin.shell: dnf module enable redis:remi-6.2 -y
