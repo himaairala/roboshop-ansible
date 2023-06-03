@@ -62,5 +62,5 @@
 
 - name: Copy MySql Repo File
   ansible.builtin.copy:
-    name: mysql.repo
-    src: /etc/yum.repos.d/mysql.repo
+    src: mysql.repo
+    dest: /etc/yum.repos.d/mysql.repo
