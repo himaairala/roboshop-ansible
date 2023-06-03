@@ -50,8 +50,8 @@
     login_user: root
     login_password: "{{ROOT_PASSWORD}}"
     filter: version
-    ignore_errors: yes
-    when: out
+  ignore_errors: yes
+  when: out
 
 - name: debug
   debug:
