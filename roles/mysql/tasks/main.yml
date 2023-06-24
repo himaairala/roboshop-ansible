@@ -57,10 +57,10 @@
 #  debug:
 #    msg: "{{out}}"
 
-- name: Copy Root Reset password file
-  ansible.builtin.template:
-    src: root-pass.sql
-    dest: /tmp/root-pass.sql
+#- name: Copy Root Reset password file
+#  ansible.builtin.template:
+#    src: root-pass.sql
+#    dest: /tmp/root-pass.sql
 
 - name: Load MySql log file
   ansible.builtin.slurp:
