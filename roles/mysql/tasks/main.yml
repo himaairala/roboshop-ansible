@@ -24,51 +24,53 @@
 #  ansible.builtin.set_fact:
 #    ROOT_PASSWORD: "{{ lookup('aws_ssm', 'param.{{ENV}}.mysql.ROOT_PASSWORD', region='us-east-1' ) }}"
 #
-#- name: Copy MySql Repo File
-#  ansible.builtin.copy:
-#    src: mysql.repo
-#    dest: /etc/yum.repos.d/mysql.repo
-#
-#- name: Disable MySql 8 version repo
-#  ansible.builtin.shell: dnf module disable mysql -y
-#
-#- name: Install MySql Server
-#  ansible.builtin.yum:
-#    name:
-#    - mysql-community-server
-#    - python3-PyMySQL
-#    state: installed
-#
-#- name: Start MySql Service
-#  ansible.builtin.systemd:
-#    name: mysqld
-#    state: restarted
-#    enabled: yes
-#
-#- name: Get MySQL Version
-#  community.mysql.mysql_info:
-#    login_user: root
-#    login_password: "{{ROOT_PASSWORD}}"
-#    filter: version
-#  ignore_errors: yes
-#  register: out
-#
-#- name: debug
-#  debug:
-#    msg: "{{out}}"
+- name: Copy MySql Repo File
+  ansible.builtin.copy:
+    src: mysql.repo
+    dest: /etc/yum.repos.d/mysql.repo
 
-#- name: Copy Root Reset password file
-#  ansible.builtin.template:
-#    src: root-pass.sql
-#    dest: /tmp/root-pass.sql
+- name: Disable MySql 8 version repo
+  ansible.builtin.shell: dnf module disable mysql -y
 
-- name: Load MySql log file
-  ansible.builtin.slurp:
-    src: /var/log/mysqld.log
+- name: Install MySql Server
+  ansible.builtin.yum:
+    name:
+    - mysql-community-server
+    - python3-PyMySQL
+    state: installed
+
+- name: Start MySql Service
+  ansible.builtin.systemd:
+    name: mysqld
+    state: restarted
+    enabled: yes
+
+- name: Get MySQL Version
+  community.mysql.mysql_info:
+    login_user: root
+    login_password: "{{ROOT_PASSWORD}}"
+    filter: version
+  ignore_errors: yes
   register: out
 
-- name: print
+- name: debug
   debug:
-    msg: "{{ out['content'] | b64decode | regex_findall('temporary password.*') | join(' ') | split(' ') | last }}"
+    msg: "{{out}}"
+- name: Change Default Password
+  when: out.failed
+  ansible.builtin.block:
+    - name: Copy Root Reset password file
+      ansible.builtin.template:
+        src: root-pass.sql
+        dest: /tmp/root-pass.sql
+
+    - name: Load MySql log file
+      ansible.builtin.slurp:
+        src: /var/log/mysqld.log
+        register: out
+
+    - name: change default password
+      ansible.builtin.shell: cat /tmp/root-pass.sql  | mysql --connect-expired-password -uroot -p"{{ out['content'] | b64decode | regex_findall('temporary password.*') | join(' ') | split(' ') | last }}"
+
 
 
