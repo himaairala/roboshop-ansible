@@ -20,42 +20,42 @@
 #PRINT "Load Shipping Schema"
 #mysql -uroot -p${ROBOSHOP_MYSQL_PASSWORD} <shipping.sql &>>$LOG
 #STAT $?
-- name: Get root passwords from parameter store
-  ansible.builtin.set_fact:
-    ROOT_PASSWORD: "{{ lookup('aws_ssm', 'param.{{ENV}}.mysql.ROOT_PASSWORD', region='us-east-1' ) }}"
-
-- name: Copy MySql Repo File
-  ansible.builtin.copy:
-    src: mysql.repo
-    dest: /etc/yum.repos.d/mysql.repo
-
-- name: Disable MySql 8 version repo
-  ansible.builtin.shell: dnf module disable mysql -y
-
-- name: Install MySql Server
-  ansible.builtin.yum:
-    name:
-    - mysql-community-server
-    - python3-PyMySQL
-    state: installed
-
-- name: Start MySql Service
-  ansible.builtin.systemd:
-    name: mysqld
-    state: restarted
-    enabled: yes
-
-- name: Get MySQL Version
-  community.mysql.mysql_info:
-    login_user: root
-    login_password: "{{ROOT_PASSWORD}}"
-    filter: version
-  ignore_errors: yes
-  register: out
-
-- name: debug
-  debug:
-    msg: "{{out}}"
+#- name: Get root passwords from parameter store
+#  ansible.builtin.set_fact:
+#    ROOT_PASSWORD: "{{ lookup('aws_ssm', 'param.{{ENV}}.mysql.ROOT_PASSWORD', region='us-east-1' ) }}"
+#
+#- name: Copy MySql Repo File
+#  ansible.builtin.copy:
+#    src: mysql.repo
+#    dest: /etc/yum.repos.d/mysql.repo
+#
+#- name: Disable MySql 8 version repo
+#  ansible.builtin.shell: dnf module disable mysql -y
+#
+#- name: Install MySql Server
+#  ansible.builtin.yum:
+#    name:
+#    - mysql-community-server
+#    - python3-PyMySQL
+#    state: installed
+#
+#- name: Start MySql Service
+#  ansible.builtin.systemd:
+#    name: mysqld
+#    state: restarted
+#    enabled: yes
+#
+#- name: Get MySQL Version
+#  community.mysql.mysql_info:
+#    login_user: root
+#    login_password: "{{ROOT_PASSWORD}}"
+#    filter: version
+#  ignore_errors: yes
+#  register: out
+#
+#- name: debug
+#  debug:
+#    msg: "{{out}}"
 
 - name: Copy Root Reset password file
   ansible.builtin.template:
