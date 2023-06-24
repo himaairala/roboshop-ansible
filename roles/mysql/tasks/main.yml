@@ -58,7 +58,7 @@
     msg: "{{out}}"
 - name: Change Default Password
   when: out.failed
-  ansible.builtin.block:
+  block:
     - name: Copy Root Reset password file
       ansible.builtin.template:
         src: root-pass.sql
