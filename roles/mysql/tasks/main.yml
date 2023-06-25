@@ -53,9 +53,6 @@
   ignore_errors: yes
   register: out
 
-- name: debug
-  debug:
-    msg: "{{out}}"
 - name: Change Default Password
   when: out.failed
   block:
@@ -67,7 +64,7 @@
     - name: Load MySql log file
       ansible.builtin.slurp:
         src: /var/log/mysqld.log
-        register: out
+        register: mysql_log
 
     - name: change default password
       ansible.builtin.shell: cat /tmp/root-pass.sql  | mysql --connect-expired-password -uroot -p"{{ out['content'] | b64decode | regex_findall('temporary password.*') | join(' ') | split(' ') | last }}"
