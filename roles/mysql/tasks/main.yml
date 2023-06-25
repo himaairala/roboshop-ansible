@@ -20,10 +20,10 @@
 #PRINT "Load Shipping Schema"
 #mysql -uroot -p${ROBOSHOP_MYSQL_PASSWORD} <shipping.sql &>>$LOG
 #STAT $?
-#- name: Get root passwords from parameter store
-#  ansible.builtin.set_fact:
-#    ROOT_PASSWORD: "{{ lookup('aws_ssm', 'param.{{ENV}}.mysql.ROOT_PASSWORD', region='us-east-1' ) }}"
-#
+- name: Get root passwords from parameter store
+  ansible.builtin.set_fact:
+    ROOT_PASSWORD: "{{ lookup('aws_ssm', 'param.{{ENV}}.mysql.ROOT_PASSWORD', region='us-east-1' ) }}"
+
 - name: Copy MySql Repo File
   ansible.builtin.copy:
     src: mysql.repo
